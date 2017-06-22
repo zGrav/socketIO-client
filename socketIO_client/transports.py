@@ -146,10 +146,12 @@ class WebsocketTransport(AbstractTransport):
             packet_text = None
             while packet_text is None:
                 packet_text = self._connection.recv()
-                if type(packet_text)!=str: packet_text=str(packet_text)
+                if type(packet_text) is not str:
+                    packet_text=str(packet_text)
                 if len(packet_text)==0:
-                    print "zero packet"
-                    packet_text = None
+                    print ("zero packet")
+                    #packet_text = None
+                    continue
                 else:
                     if not isinstance(packet_text, six.binary_type):
                         packet_text = packet_text.encode('utf-8')
