@@ -153,6 +153,9 @@ class WebsocketTransport(AbstractTransport):
             if len(str(packet_text))==0:
                 print "zero packet, setting 0x03"
                 packet_text = 0x03
+            if (len(str(packet_text)))==0:
+                print "zero packet, setting 0x03"
+                packet_text = 0x03
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
