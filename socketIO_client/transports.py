@@ -153,6 +153,7 @@ class WebsocketTransport(AbstractTransport):
                 print "zero packet"
                 #raise PacketError('zero size packet')
                 packet_text = ""
+                packet_text = packet_text.encode('utf-8')
                 engineIO_packet_type, engineIO_packet_data = parse_packet_text(packet_text)
                 yield engineIO_packet_type, engineIO_packet_data
             else:
