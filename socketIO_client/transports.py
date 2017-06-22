@@ -144,21 +144,8 @@ class WebsocketTransport(AbstractTransport):
     def recv_packet(self):
         try:
             packet_text = None
-            if (len(str(packet_text))) is 0:
-                print "1st"
-                print "zero packet, setting 0x03"
-                packet_text = 0x03
-            if len(str(packet_text)) is 0:
-                print "2nd"
-                print "zero packet, setting 0x03"
-                packet_text = 0x03
             if len(str(packet_text))==0:
-                print "3rd"
-                print "zero packet, setting 0x03"
-                packet_text = 0x03
-            if (len(str(packet_text)))==0:
-                print "4th"
-                print "zero packet, setting 0x03"
+                print "zero packet, defaulting to 0x03"
                 packet_text = 0x03
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
