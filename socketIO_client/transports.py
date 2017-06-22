@@ -151,7 +151,8 @@ class WebsocketTransport(AbstractTransport):
                 if len(packet_text)==0:
                     print ("zero packet")
                     continue
-
+                else:
+                    print (packet_text)
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
@@ -160,7 +161,6 @@ class WebsocketTransport(AbstractTransport):
             raise ConnectionError('recv disconnected (%s)' % e)
         except SocketError as e:
             raise ConnectionError('recv disconnected (%s)' % e)
-
         if not isinstance(packet_text, six.binary_type) and len(packet_text) > 0:
             packet_text = packet_text.encode('utf-8')
             engineIO_packet_type, engineIO_packet_data = parse_packet_text(packet_text)
