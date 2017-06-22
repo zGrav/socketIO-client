@@ -97,7 +97,8 @@ def parse_packet_text(packet_text):
         packet_type = int(get_character(packet_text, 0))
         packet_data = packet_text[1:]
         return packet_type, packet_data
-
+    else:
+        print "zero byte packet"
 
 def get_namespace_path(socketIO_packet_data):
     if not socketIO_packet_data.startswith(b'/'):
