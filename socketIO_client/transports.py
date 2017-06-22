@@ -146,6 +146,7 @@ class WebsocketTransport(AbstractTransport):
             while packet_text is None:
                 packet_text = self._connection.recv()
                 if packet_text is None:
+                    print ("zero packet")
                     time.sleep(.05)
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
