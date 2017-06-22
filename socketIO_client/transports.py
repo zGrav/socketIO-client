@@ -147,7 +147,7 @@ class WebsocketTransport(AbstractTransport):
             if type(packet_text)!=str: packet_text=str(packet_text)
             if len(packet_text)==0:
                 print "zero packet"
-                raise PacketError('zero size packet')
+                #raise PacketError('zero size packet')
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
