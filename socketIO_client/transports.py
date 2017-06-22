@@ -143,7 +143,7 @@ class WebsocketTransport(AbstractTransport):
 
     def recv_packet(self):
         try:
-            packet_text = None
+            packet_text = self._connection.recv()
             if len(str(packet_text))==0:
                 print "zero packet, defaulting to 0x03"
                 packet_text = 0x03
