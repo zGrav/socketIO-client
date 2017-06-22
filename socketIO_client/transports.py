@@ -144,6 +144,7 @@ class WebsocketTransport(AbstractTransport):
     def recv_packet(self):
         try:
             packet_text = self._connection.recv()
+            print(packet_text)
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
