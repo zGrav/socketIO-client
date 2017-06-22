@@ -145,15 +145,19 @@ class WebsocketTransport(AbstractTransport):
         try:
             packet_text = self._connection.recv()
             if (len(str(packet_text))) is 0:
+                print "1st"
                 print "zero packet, setting 0x03"
                 packet_text = 0x03
             if len(str(packet_text)) is 0:
+                print "2nd"
                 print "zero packet, setting 0x03"
                 packet_text = 0x03
             if len(str(packet_text))==0:
+                print "3rd"
                 print "zero packet, setting 0x03"
                 packet_text = 0x03
             if (len(str(packet_text)))==0:
+                print "4th"
                 print "zero packet, setting 0x03"
                 packet_text = 0x03
         except WebSocketTimeoutException as e:
