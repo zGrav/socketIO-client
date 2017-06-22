@@ -19,7 +19,7 @@ by running the following commands:
 yes | pip uninstall websocket websocket-client
 pip install -U websocket-client""")
 
-from .exceptions import ConnectionError, TimeoutError
+from .exceptions import ConnectionError, TimeoutError, PacketError
 from .parsers import (
     encode_engineIO_content, decode_engineIO_content,
     format_packet_text, parse_packet_text)
@@ -144,6 +144,10 @@ class WebsocketTransport(AbstractTransport):
     def recv_packet(self):
         try:
             packet_text = self._connection.recv()
+            if type(packet_text)!=str: packet_text=str(packet_text)
+            if len(packet_text)==0:
+                print "zero packet"
+                raise PacketError('zero size packet')
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
