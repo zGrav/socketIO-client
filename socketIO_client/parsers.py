@@ -93,9 +93,10 @@ def format_packet_text(packet_type, packet_data):
 
 
 def parse_packet_text(packet_text):
-    packet_type = int(get_character(packet_text, 0))
-    packet_data = packet_text[1:]
-    return packet_type, packet_data
+    if (len(packet_text) > 0):
+        packet_type = int(get_character(packet_text, 0))
+        packet_data = packet_text[1:]
+        return packet_type, packet_data
 
 
 def get_namespace_path(socketIO_packet_data):
