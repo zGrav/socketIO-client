@@ -146,12 +146,11 @@ class WebsocketTransport(AbstractTransport):
             packet_text = None
             while packet_text is None:
                 packet_text = self._connection.recv()
-                if packet_text is None:
-                    time.sleep(.05)
-            if type(packet_text)!=str: packet_text=str(packet_text)
+            if type(packet_text)!=str:
+                packet_text=str(packet_text)
             if len(packet_text)==0:
-                print "zero packet"
-                #raise PacketError('zero size packet')
+                print ("zero packet")
+                continue
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
