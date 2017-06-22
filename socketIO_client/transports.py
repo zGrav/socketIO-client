@@ -19,7 +19,7 @@ by running the following commands:
 yes | pip uninstall websocket websocket-client
 pip install -U websocket-client""")
 
-from .exceptions import ConnectionError, TimeoutError, AttributeError
+from .exceptions import ConnectionError, TimeoutError
 from .parsers import (
     encode_engineIO_content, decode_engineIO_content,
     format_packet_text, parse_packet_text)
