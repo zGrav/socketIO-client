@@ -93,7 +93,7 @@ def format_packet_text(packet_type, packet_data):
 
 
 def parse_packet_text(packet_text):
-    if (len(packet_text) > 0):
+    if packet_text is not None:
         packet_type = int(get_character(packet_text, 0))
         packet_data = packet_text[1:]
         return packet_type, packet_data
