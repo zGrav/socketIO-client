@@ -19,7 +19,7 @@ by running the following commands:
 yes | pip uninstall websocket websocket-client
 pip install -U websocket-client""")
 
-from .exceptions import ConnectionError, TimeoutError
+from .exceptions import ConnectionError, TimeoutError, AttributeError
 from .parsers import (
     encode_engineIO_content, decode_engineIO_content,
     format_packet_text, parse_packet_text)
@@ -144,9 +144,6 @@ class WebsocketTransport(AbstractTransport):
     def recv_packet(self):
         try:
             packet_text = self._connection.recv()
-            if len(str(packet_text))==0:
-                print "zero packet, defaulting to 0x03"
-                packet_text = 0x03
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
         except SSLError as e:
@@ -155,6 +152,8 @@ class WebsocketTransport(AbstractTransport):
             raise ConnectionError('recv disconnected (%s)' % e)
         except SocketError as e:
             raise ConnectionError('recv disconnected (%s)' % e)
+        except AttributeError as e:
+            raise ConnectionError('recv disconnected due to invalid zero byte packet (%s)' % e)
         if not isinstance(packet_text, six.binary_type):
             packet_text = packet_text.encode('utf-8')
         engineIO_packet_type, engineIO_packet_data = parse_packet_text(
