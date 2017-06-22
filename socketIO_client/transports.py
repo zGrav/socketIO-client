@@ -145,6 +145,7 @@ class WebsocketTransport(AbstractTransport):
         try:
             packet_text = self._connection.recv()
             if len(str(packet_text))==0:
+                print "zero packet"
                 packet_text = 3
         except WebSocketTimeoutException as e:
             raise TimeoutError('recv timed out (%s)' % e)
