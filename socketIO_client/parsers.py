@@ -4,7 +4,7 @@ from collections import namedtuple
 from six.moves.urllib.parse import urlparse as parse_url
 
 from .symmetries import decode_string, encode_string, get_byte, get_character
-
+from .exceptions import ConnectionError
 
 EngineIOSession = namedtuple('EngineIOSession', [
     'id', 'ping_interval', 'ping_timeout', 'transport_upgrades'])
@@ -93,10 +93,12 @@ def format_packet_text(packet_type, packet_data):
 
 
 def parse_packet_text(packet_text):
-    packet_type = int(get_character(packet_text, 0))
-    packet_data = packet_text[1:]
-    return packet_type, packet_data
-
+    try:
+        packet_type = int(get_character(packet_text, 0))
+        packet_data = packet_text[1:]
+        return packet_type, packet_data
+    except IndexError:
+        raise ConnectionError('recv disconnected due to invalid zero byte packet (%s)' % e)
 
 def get_namespace_path(socketIO_packet_data):
     if not socketIO_packet_data.startswith(b'/'):
